@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Oxímetro de Pulso - Simulação</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: #121212;
+    color: #00ff99;
+    font-family: 'Consolas', monospace;
+    display: flex;
+    justify-content: center;
+    padding: 40px 10px;
+    min-height: 100vh;
+    margin: 0;
+  }
+  #oximetro {
+    background: #202020;
+    border-radius: 20px;
+    border: 4px solid #00ff99;
+    width: 400px;
+    padding: 30px 25px;
+    box-shadow: 0 0 25px #00ff9977;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  h2 {
+    margin: 0 0 18px 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    user-select: none;
+  }
+  .parametros {
+    display: flex;
+    justify-content: space-around;
+    gap: 25px;
+  }
+  .parametro {
+    flex: 1 1 45%;
+    background: #151515;
+    border: 2px solid #00ff99;
+    border-radius: 14px;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 18px #00ff9966;
+    min-height: 130px;
+  }
+  .parametro .titulo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2.4px;
+    margin-bottom: 14px;
+    text-align: center;
+    user-select: none;
+  }
+  .parametro .valor {
+    font-size: 3.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .parametro .unidade {
+    font-size: 1.3rem;
+    margin-top: 8px;
+    font-weight: 700;
+    opacity: 0.85;
+    text-align: center;
+  }
+  #btnPower {
+    margin-top: 12px;
+    padding: 18px 0;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: #002200;
+    background-color: #00ff99;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 22px #00ff9977;
+    transition: background-color 0.3s ease;
+  }
+  #btnPower.off {
+    background-color: #004422;
+    color: #00ff9977;
+    box-shadow: none;
+  }
+  @media (max-width: 440px) {
+    #oximetro {
+      width: 100%;
+      padding: 25px 18px;
+    }
+    .parametros {
+      flex-direction: column;
+      gap: 18px;
+    }
+    .parametro {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="oximetro">
+    <h2>Oxímetro de Pulso</h2>
+    <div class="parametros">
+      <div class="parametro">
+        <div class="titulo">Saturação O₂</div>
+        <div class="valor" id="spo2">--</div>
+        <div class="unidade">%</div>
+      </div>
+      <div class="parametro">
+        <div class="titulo">Pulso</div>
+        <div class="valor" id="pulso">--</div>
+        <div class="unidade">bpm</div>
+      </div>
+    </div>
+    <button id="btnPower" class="off">Ligar</button>
+  </div>
+
+<script>
+  const btnPower = document.getElementById('btnPower');
+  const spo2Span = document.getElementById('spo2');
+  const pulsoSpan = document.getElementById('pulso');
+
+  let ligado = false;
+  let intervalId;
+
+  function gerarSpo2() {
+    return 90 + Math.floor(Math.random() * 10); // 90-99%
+  }
+
+  function gerarPulso() {
+    return 55 + Math.floor(Math.random() * 45); // 55-99 bpm
+  }
+
+  function atualizar() {
+    if(!ligado) return;
+    spo2Span.textContent = gerarSpo2();
+    pulsoSpan.textContent = gerarPulso();
+  }
+
+  btnPower.addEventListener('click', () => {
+    ligado = !ligado;
+    if(ligado) {
+      btnPower.textContent = "Desligar";
+      btnPower.classList.remove('off');
+      atualizar();
+      intervalId = setInterval(atualizar, 1000);
+    } else {
+      btnPower.textContent = "Ligar";
+      btnPower.classList.add('off');
+      clearInterval(intervalId);
+      spo2Span.textContent = '--';
+      pulsoSpan.textContent = '--';
+    }
+  });
+</script>
+</body>
+</html>

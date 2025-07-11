@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Termômetro Digital - Simulação</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background: #1e1e2f;
+      color: #f4a261;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      padding: 40px 10px;
+      min-height: 100vh;
+      margin: 0;
+    }
+    #termometro {
+      background: #2a2541;
+      border-radius: 22px;
+      border: 4px solid #f4a261;
+      width: 380px;
+      padding: 30px 25px;
+      box-shadow: 0 0 25px #f4a261aa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    h2 {
+      margin: 0 0 20px 0;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2.1rem;
+      letter-spacing: 3px;
+      user-select: none;
+    }
+    .parametro {
+      background: #382f56;
+      border: 2px solid #f4a261;
+      border-radius: 14px;
+      width: 100%;
+      padding: 20px 15px;
+      box-shadow: 0 0 15px #f4a261aa;
+      text-align: center;
+      user-select: none;
+    }
+    .parametro .titulo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      margin-bottom: 14px;
+    }
+    .parametro .valor {
+      font-size: 4.5rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      color: #ffddb1;
+    }
+    .parametro .unidade {
+      font-size: 1.6rem;
+      margin-top: 10px;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+    #btnPower {
+      margin-top: 14px;
+      padding: 20px 0;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #4e3a00;
+      background-color: #f4a261;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 0 28px #f4a261aa;
+      transition: background-color 0.3s ease;
+    }
+    #btnPower.off {
+      background-color: #765d15;
+      color: #d2b578;
+      box-shadow: none;
+    }
+    @media (max-width: 420px) {
+      #termometro {
+        width: 100%;
+        padding: 25px 20px;
+      }
+      .parametro .titulo {
+        font-size: 1.1rem;
+      }
+      .parametro .valor {
+        font-size: 3.8rem;
+      }
+      .parametro .unidade {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="termometro">
+    <h2>Termômetro Digital</h2>
+    <div class="parametro">
+      <div class="titulo">Temperatura Corporal</div>
+      <div class="valor" id="temp">--</div>
+      <div class="unidade">°C</div>
+    </div>
+    <button id="btnPower" class="off">Ligar</button>
+  </div>
+
+  <script>
+    const btnPower = document.getElementById('btnPower');
+    const tempSpan = document.getElementById('temp');
+
+    let ligado = false;
+    let intervalId;
+
+    function gerarTemperatura() {
+      // Temperatura corporal normal entre 35.5 e 37.5 °C
+      return (35.5 + Math.random() * 2).toFixed(1);
+    }
+
+    function atualizar() {
+      if (!ligado) return;
+      tempSpan.textContent = gerarTemperatura();
+    }
+
+    btnPower.addEventListener('click', () => {
+      ligado = !ligado;
+      if (ligado) {
+        btnPower.textContent = 'Desligar';
+        btnPower.classList.remove('off');
+        atualizar();
+        intervalId = setInterval(atualizar, 1200);
+      } else {
+        btnPower.textContent = 'Ligar';
+        btnPower.classList.add('off');
+        clearInterval(intervalId);
+        tempSpan.textContent = '--';
+      }
+    });
+  </script>
+</body>
+</html>

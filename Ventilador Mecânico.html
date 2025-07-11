@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ventilador Mecânico</title>
+<style>
+  body {
+    background: #121212;
+    color: #0af;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  #ventilador {
+    background: #222;
+    border-radius: 15px;
+    border: 3px solid #0af;
+    width: 480px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .parametro .titulo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;  /* aumento aqui */
+  margin-bottom: 8px;      /* espaçamento vertical maior */
+}
+
+.parametro .valor {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-top: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.parametro .unidade {
+  font-size: 1.2rem;
+  margin-top: 6px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+  }
+  #btnPower {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #121212;
+    background-color: #0af;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #btnPower.off {
+    background-color: #205;
+    color: #7df;
+  }
+</style>
+</head>
+<body>
+<div id="ventilador">
+  <h2 style="text-align:center; margin-bottom:20px;">Ventilador Mecânico</h2>
+  <div class="parametros">
+    <div class="parametro">
+      Fluxo Respiratório
+      <span class="valor" id="fluxo">--</span>
+      L/min
+    </div>
+    <div class="parametro">
+      Volume Corrente
+      <span class="valor" id="volume">--</span>
+      mL
+    </div>
+    <div class="parametro">
+      Frequência Respiratória
+      <span class="valor" id="freqResp">--</span>
+      rpm
+    </div>
+  </div>
+  <button id="btnPower" class="off">Ligar</button>
+</div>
+
+<script>
+  const btnPower = document.getElementById('btnPower');
+  const fluxoSpan = document.getElementById('fluxo');
+  const volumeSpan = document.getElementById('volume');
+  const freqRespSpan = document.getElementById('freqResp');
+
+  let ligado = false;
+  let intervalId;
+
+  function gerarFluxo() {
+    // fluxo normal 30-60 L/min
+    return (30 + Math.random() * 30).toFixed(1);
+  }
+
+  function gerarVolume() {
+    // volume corrente 400-700 mL
+    return (400 + Math.random() * 300).toFixed(0);
+  }
+
+  function gerarFreqResp() {
+    // frequência respiratória 12-20 rpm
+    return Math.floor(12 + Math.random() * 9);
+  }
+
+  function atualizar() {
+    if(!ligado) return;
+    fluxoSpan.textContent = gerarFluxo();
+    volumeSpan.textContent = gerarVolume();
+    freqRespSpan.textContent = gerarFreqResp();
+  }
+
+  btnPower.addEventListener('click', () => {
+    ligado = !ligado;
+    if(ligado){
+      btnPower.textContent = "Desligar";
+      btnPower.classList.remove('off');
+      intervalId = setInterval(atualizar, 500);
+    } else {
+      btnPower.textContent = "Ligar";
+      btnPower.classList.add('off');
+      clearInterval(intervalId);
+      fluxoSpan.textContent = '--';
+      volumeSpan.textContent = '--';
+      freqRespSpan.textContent = '--';
+    }
+  });
+</script>
+</body>
+</html>
