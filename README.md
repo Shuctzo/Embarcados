@@ -1,6 +1,29 @@
-Sistemas Embarcados com Interface Gráfica para Saúde
-Descrição
-Este repositório contém projetos de interfaces gráficas para sistemas embarcados voltados para aplicações na área da saúde. O objetivo é demonstrar a utilização de interfaces gráficas em dispositivos médicos, visando melhorar a interação e a experiência do usuário.
+# 🏥 Simulador de Interfaces Gráficas para Sistemas Embarcados em Saúde
 
-Objetivo
-Demonstrar o desenvolvimento e a aplicação de interfaces gráficas em sistemas embarcados, com foco na usabilidade e eficiência para o setor de saúde.
+Este repositório contém simulações realistas de **interfaces gráficas (GUI)** inspiradas em sistemas embarcados amplamente utilizados em ambientes de saúde, como hospitais, ambulatórios, UTIs e laboratórios clínicos.
+
+A proposta é oferecer protótipos visuais e funcionais que **reproduzam a experiência de equipamentos reais**, como:
+
+- Monitores multiparâmetros
+- Bombas de infusão
+- Desfibriladores
+- Sistemas de ventilação mecânica
+- Interfaces de equipamentos laboratoriais automatizados
+
+## 🎯 Objetivo
+
+O projeto visa:
+
+- Estudar o comportamento visual e lógico de interfaces embarcadas médicas
+- Explorar a integração entre **programação de baixo nível** (Assembly/C/C++) e simulações gráficas
+- Ser uma referência para estudantes, desenvolvedores e profissionais da área da saúde tecnológica
+- Possibilitar prototipação e testes sem a necessidade de hardware físico
+
+## 🛠️ Tecnologias Utilizadas
+
+- **C/C++** — lógica de simulação
+- **HTML/CSS/JS** — visualização e interação das interfaces
+- **Assembly (x86)** — módulos de lógica base para simulações específicas
+- **Plataformas simuladas** — replicando o comportamento de telas embarcadas
+
+
